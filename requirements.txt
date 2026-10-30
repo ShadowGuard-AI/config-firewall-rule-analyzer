@@ -1,2 +1,4 @@
-PyYAML>=1.0.0
-jsonschema>=1.0.0
+# Nothing to install: main.py uses only the standard library
+# (argparse, logging, os, re, sys). PyYAML and jsonschema stood
+# here before, but the analyzer parses rule text line by line
+# and never imported either one in a way it used.

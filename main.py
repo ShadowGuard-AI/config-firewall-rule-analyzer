@@ -3,12 +3,6 @@ import logging
 import sys
 import os
 import re
-try:
-    import yaml
-    from jsonschema import validate, ValidationError
-except ImportError as e:
-    print(f"Error: Missing dependencies. Please install them:\n  pip install PyYAML jsonschema")
-    sys.exit(1)
 
 
 # Configure logging
@@ -129,17 +123,23 @@ class FirewallRuleAnalyzer:
             else:
                 seen_rules.add(rule)
 
-        # Shadowed Rule Check (Simplified)
-        # This is a placeholder.  Full shadowed rule detection requires more complex logic.
+        # Shadowed rule check (simplified). Packet filters take the
+        # first matching rule, so only an earlier rule can shadow a
+        # later one. The first version of this loop reported the pair
+        # the other way round, and also reported a duplicated rule as
+        # shadowed by itself on top of the redundancy finding above.
         for i in range(len(self.rules)):
             for j in range(i + 1, len(self.rules)):
+                if self.rules[i] == self.rules[j]:
+                    continue
                 if self.is_shadowed(self.rules[i], self.rules[j]):
-                    report.append(f"Rule {self.rules[i]} may be shadowed by rule {self.rules[j]}")
+                    report.append(f"Rule {self.rules[j]} may be shadowed by earlier rule {self.rules[i]}")
 
-        # Overly Permissive Rule Check (Simplified)
-        #  This is also a placeholder.  What constitutes "overly permissive" depends on policy.
+        # Overly permissive check (simplified). "any" has to be a whole
+        # word: as a substring test it flagged a comment containing
+        # "company", which says nothing about the rule itself.
         for rule in self.rules:
-            if "any" in rule.lower() or "0.0.0.0/0" in rule.lower():
+            if re.search(r"\bany\b", rule.lower()) or "0.0.0.0/0" in rule:
                 report.append(f"Potentially overly permissive rule: {rule}")
 
         return report
@@ -156,7 +156,10 @@ class FirewallRuleAnalyzer:
         Returns:
             bool: True if rule1 might be shadowed by rule2, False otherwise.
         """
-        return rule1 in rule2
+        # With the caller's ordering, rule1 is the earlier rule. A
+        # later rule whose text extends the earlier one is the pair
+        # worth a second look under this deliberately naive test.
+        return rule2.startswith(rule1) or rule1 in rule2
 
 def setup_argparse():
     """
