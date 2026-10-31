@@ -10,7 +10,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 class FirewallRuleAnalyzer:
     """
-    A class to analyze firewall rules for redundancy, shadowed rules, and overly permissive rules.
+    A class to analyze firewall rules for redundancy, textual near
+    duplicate hints, and overly permissive rules.
     """
 
     def __init__(self, rule_file=None, rule_type=None):
@@ -81,7 +82,7 @@ class FirewallRuleAnalyzer:
         Returns:
             list: A list of parsed firewalld rules.
         """
-        # Note:  This is a simplified example.  firewalld uses XML, which should be parsed correctly for robust analysis.
+        # Note:  This is a simplified example.  firewalld uses XML, which should be parsed correctly for a fuller analysis.
         rules = []
         for line in rule_content.splitlines():
             line = line.strip()
@@ -123,7 +124,7 @@ class FirewallRuleAnalyzer:
             else:
                 seen_rules.add(rule)
 
-        # Shadowed rule check (simplified). Packet filters take the
+        # Textual near duplicate check (simplified). Packet filters take the
         # first matching rule, so only an earlier rule can shadow a
         # later one. The first version of this loop reported the pair
         # the other way round, and also reported a duplicated rule as
@@ -133,7 +134,7 @@ class FirewallRuleAnalyzer:
                 if self.rules[i] == self.rules[j]:
                     continue
                 if self.is_shadowed(self.rules[i], self.rules[j]):
-                    report.append(f"Rule {self.rules[j]} may be shadowed by earlier rule {self.rules[i]}")
+                    report.append(f"Textual near duplicate hint: rule {self.rules[j]} contains the text of earlier rule {self.rules[i]}. This is a text match only, not a field aware shadow check.")
 
         # Overly permissive check (simplified). "any" has to be a whole
         # word: as a substring test it flagged a comment containing
@@ -146,8 +147,11 @@ class FirewallRuleAnalyzer:
 
     def is_shadowed(self, rule1, rule2):
         """
-        Placeholder for shadowed rule detection.  Needs more sophisticated logic.
+        Text only near duplicate test. Needs more sophisticated logic.
         For now, just checks if rule1 is a substring of rule2 (very naive).
+        It compares rule text only and never compares chain, addresses,
+        protocol, ports, or action, so it misses shadows whose rule
+        texts are not nested.
 
         Args:
             rule1 (str): The first firewall rule.
@@ -187,6 +191,15 @@ def main():
     try:
         analyzer = FirewallRuleAnalyzer(rule_file=args.rule_file, rule_type=args.rule_type)
         analyzer.load_rules()
+
+        if not analyzer.rules:
+            logging.error(
+                f"No rules could be parsed from {args.rule_file} as type "
+                f"{args.rule_type}. Check that the file holds {args.rule_type} "
+                "rules, or pass the matching type with -t."
+            )
+            sys.exit(1)
+
         report = analyzer.analyze_rules()
 
         if report:
