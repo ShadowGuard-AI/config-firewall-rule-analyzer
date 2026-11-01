@@ -68,6 +68,9 @@ class FirewallRuleAnalyzer:
         rules = []
         for line in rule_content.splitlines():
             line = line.strip()
+            # I keep only lines that add a rule. Chain creation, default
+            # policies, and counters in the same file are dropped, so the
+            # analysis below never knows which chain a rule belongs to.
             if line.startswith('-A'):
                 rules.append(line)
         return rules
@@ -86,6 +89,9 @@ class FirewallRuleAnalyzer:
         rules = []
         for line in rule_content.splitlines():
             line = line.strip()
+            # A firewalld rule element can span several lines in the XML,
+            # and I keep only its opening line. The rest of the rule,
+            # including its action, never reaches the checks below.
             if line.startswith('<rule'):
                 rules.append(line)
         return rules
@@ -203,6 +209,9 @@ def main():
         report = analyzer.analyze_rules()
 
         if report:
+            # I print the report and finish normally. Rules flagged as
+            # overly permissive and a clean file both exit 0, so the
+            # printed report is the result, not the exit code.
             print("Firewall Rule Analysis Report:")
             for issue in report:
                 print(f"- {issue}")
