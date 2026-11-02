@@ -3,162 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Config Firewall Rule Analyzer: what it is, how it runs, where it stops</title>
-<meta name="description" content="Config Firewall Rule Analyzer is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
-<style>
-:root {
-  --bg: #181c3a; --panel: #22284e; --ink: #eeeef6;
-  --mut: #2d3669;
-  --acc: #7eb8f7; --acc2: #f7ba7e;
-  --line: #22284e;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: 'Trebuchet MS', sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Courier New', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
-</style>
+<title>config-firewall-rule-analyzer: Encaustic Wax and the Hot Plate</title>
+<style>@font-face{font-family:'Big Shoulders Display';src:url('fonts/BigShouldersDisplay.ttf') format('truetype');}@font-face{font-family:'Alegreya Sans';src:url('fonts/AlegreyaSans.ttf') format('truetype');}:root{--cotton:#e9e2d0;--resist:#f9f7f0;--indigo:#26316e;--ink:#211d18;--copper:#b06634}*{box-sizing:border-box}body{margin:0;background:var(--cotton);color:var(--ink);font-family:'Alegreya Sans',sans-serif;line-height:1.65}h1,h2,h3{font-family:'Big Shoulders Display',sans-serif;color:var(--indigo);letter-spacing:.02em}.hero img.heroimg{width:100%;height:48vh;object-fit:cover;display:block}.hero .in,main,footer{max-width:1120px;margin:0 auto;padding:1rem 6vw 2rem}.logo{width:200px}.btn{display:inline-block;text-decoration:none;font-family:'Big Shoulders Display',sans-serif;color:var(--indigo);background:var(--resist);border:2px solid var(--copper);border-radius:50%;padding:.9rem 1.1rem;margin:.2rem}.btn:focus-visible{outline:3px double var(--copper);outline-offset:3px}.plate{background:var(--resist);padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0;border-top:4px solid var(--copper)}pre{background:#26221e;color:#f4f0e4;padding:1rem;overflow-x:auto;white-space:pre-wrap}.callout{border:2px solid var(--copper);padding:.2rem 1.2rem 1rem;margin:1.2rem 0}.entry{display:flex;gap:1rem;padding:.5rem 0;border-bottom:1px solid var(--copper)}.entry b{min-width:230px}a{color:var(--indigo)}</style>
 </head>
-<body class="layout-note">
-<!-- This page exists for config-firewall-rule-analyzer alone: the layout (notebook),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
+<body>
 <header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Config Firewall Rule Analyzer logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Config Firewall Rule Analyzer</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/config-firewall-rule-analyzer">github.com/ShadowGuard-AI/config-firewall-rule-analyzer</a></p>
+<img class="heroimg" src="assets/intro-banner.png" alt="The bench before work, cold cake on the cold corner, no lettering">
+<div class="in">
+<img class="logo" src="assets/logo.png" alt="One wax cake on a plate edge, the mark for config-firewall-rule-analyzer">
+<h1>config-firewall-rule-analyzer</h1>
+<p>A studio inventory ledger. Ground in cotton, panels in resist white, headings in Big Shoulders Display in indigo dye vat, copy in Alegreya Sans in near black, and copper kept for rules, markers, and the plate line.</p>
+</div>
 </header>
-
 <main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/config-firewall-rule-analyzer">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Config Firewall Rule Analyzer is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Config Firewall Rule Analyzer: 3 files, 236 counted
-          lines across Python 218, Markdown 16, Text 2. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/config-firewall-rule-analyzer.git<br>$ cd config-firewall-rule-analyzer</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 15 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>logging.basicConfig(level=logging.INFO, format=&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;)
-
-class FirewallRuleAnalyzer:
-    &quot;&quot;&quot;
-    A class to analyze firewall rules for redundancy, shadowed rules, and overly permissive rules.
-    &quot;&quot;&quot;
-
-    def __init__(self, rule_file=None, rule_type=None):
-        &quot;&quot;&quot;
-        Initializes the FirewallRuleAnalyzer.
-
-        Args:
-            rule_file (str, optional): The path to the firewall rule file. Defaults to None.
-            rule_type (str, optional): The type of firewall (iptables, firewalld, pfctl). Defaults to None.
-        &quot;&quot;&quot;
-        self.rule_file = rule_file
-        self.rule_type = rule_type
-        self.rules = []  # Store parsed firewall rules
-
-    def load_rules(self):
-        &quot;&quot;&quot;
-        Loads firewall rules from the specified file based on the firewall type.</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>218</td></tr>
-        <tr><td><code>README.md</code></td><td>16</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>2</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">FirewallRuleAnalyzer, setup_argparse, main, __init__, load_rules, parse_iptables_rules, parse_firewalld_rules, parse_pfctl_rules</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/config-firewall-rule-analyzer/tree/main/config-firewall-rule-analyzer-Visuals">config-firewall-rule-analyzer-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Config Firewall Rule Analyzer">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Config Firewall Rule Analyzer">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Config Firewall Rule Analyzer">
-        </div>
-      </section>
-    </div>
-  </section>
+<nav><a class="btn" href="#e4">Analyse a Rule File</a><a class="btn" href="#e2">Name the Rule Type</a><a class="btn" href="#e4">Show Help</a></nav>
+<section class="plate" id="e1"><h2>The tool, stated short</h2><p>config-firewall-rule-analyzer reads a rule file. It reports exact duplicate rules. It reports textual near duplicate hints. It reports rules that look overly permissive. It prints the report. Findings do not change the exit code. A flagged file exits 0. A clean file exits 0. The printed report is the result.</p></section>
+<section class="plate" id="e2"><h2>Three Types, Named Not Detected</h2><p>The caller names the type. Nothing is detected. -t is required. Its choices are iptables, firewalld, and pfctl. Each type is parsed by its own rule. Iptables keeps lines beginning -A. Firewalld keeps lines beginning with a rule element opening tag. Pfctl keeps lines beginning pass or block. A file parsed under the wrong type yields no rules. No rules means exit 1.</p></section>
+<section class="plate" id="e3"><h2>Install, as the README gives it</h2><pre>git clone https://github.com/ShadowStrikeHQ/config-firewall-rule-analyzer</pre><p>One line only, flagged, not corrected: the install line names another organisation, and it is printed in the licence entry below, flagged, not corrected. The README gives no directory change. It gives no dependency step. The program imports only the standard library. That fact is noted beside the gap. It closes part of the gap. It does not close the missing directory step.</p></section>
+<section class="plate" id="e4"><h2>The command, ruled large</h2><pre>python3 main.py -f RULE_FILE -t TYPE</pre><p>Both arguments are required. -f names the rule file, with the long form --file. -t names the type, with the long form --type, from the three choices above. The README prints neither argument. This entry does. It takes both from main.py.</p></section>
+<section class="plate" id="e5"><h2>A Hint Is Not a Shadow Check</h2><p>Exact duplicates first. A repeated rule line draws one redundancy line per repeat. Near duplicates second. An earlier rule whose text sits inside a later rule draws a hint line. The hint names both rules. It states its own limit in its own text. It is a text match only. It is not a field aware shadow check. Equal rules are skipped by this check. They belong to the first check.</p>
+<div class="callout"><h3>The Whole Word Any, and the Unrestricted Range</h3><p>Permissive rules third. A rule holding the whole word any draws a line. A rule holding the unrestricted address range draws a line. The unrestricted address range is written 0.0.0.0/0 in the code. No severity is attached. No remedy is attached. The code offers neither. This page invents neither.</p></div></section>
+<section class="plate" id="e6"><h2>What the Parsers Drop</h2><p>Iptables chain creation lines are dropped. Default policies are dropped. Counters are dropped. A firewalld rule spanning several lines keeps its opening line only. Its action, on a later line, never reaches the checks. Pfctl lines beginning with other words are dropped whole. Each dropped class is listed. None is softened.</p></section>
+<section class="plate" id="e7"><h2>Findings Exit 0, and the other endings</h2>
+<div class="callout"><h3>No Rules Parsed Ends the Run</h3><p>File read, no rules parsed: error logged, exit 1.</p></div>
+<p>Missing file: error logged, exit 1. Unsupported type: the parser refuses it before that point, by its choices list. Report printed, issues or none: exit 0. The four endings are printed at one size. Exit codes here report whether the run worked. They do not report whether the rules were sound.</p></section>
+<section class="plate" id="e8"><h2>Licence and the flagged line</h2><pre>Copyright (c) ShadowStrikeHQ</pre><p>The README licence line names another organisation. ShadowStrikeHQ appears 2 times in the live README, once in the install line and once in the licence line. Both stand flagged on this page. Neither is quietly mended. GitHub records the licence as MIT. This page states that as GitHub record, not as README text.</p></section>
+<section class="plate"><h2>Preserved record, verbatim lines and code facts</h2>
+<p># config-Firewall-Rule-Analyzer</p>
+<p>A command-line tool that parses firewall rules (iptables, firewalld, pfctl) from a specified file or system and analyzes them for redundancy and overly permissive rules, and reports a textual near duplicate hint between rules whose text is nested. Shadow detection compares rule text only and misses shadows whose texts are not nested, so it is a hint, not a field aware shadowed rule analysis. Outputs a report highlighting potential issues. - Focused on Tools for verifying that system or application configurations adhere to security best practices and policies. Scans configuration files, databases, or APIs for misconfigurations and vulnerabilities.</p>
+<p>## Install</p>
+<p>`git clone https://github.com/ShadowStrikeHQ/config-firewall-rule-analyzer`</p>
+<p>## Usage</p>
+<p>`./config-firewall-rule-analyzer [params]`</p>
+<p>## Parameters</p>
+<p>- `-h`: Show help message and exit</p>
+<p>- `-f`: Path to the firewall rule file.</p>
+<p>- `-t`: No description provided</p>
+<p>## License</p>
+<p>Copyright (c) ShadowStrikeHQ</p>
+<p>config-firewall-rule-analyzer reads a rule file. It reports exact duplicate rules. It reports textual near duplicate hints. It reports rules that look overly permissive. It prints the report.</p><p>Findings do not change the exit code. A flagged file exits 0. A clean file exits 0. The printed report is the result.</p><p>The caller names the type. Nothing is detected. -t is required. Its choices are iptables, firewalld, and pfctl.</p><p>Iptables keeps lines beginning -A. Firewalld keeps lines beginning with a rule element opening tag. Pfctl keeps lines beginning pass or block.</p><p>A file parsed under the wrong type yields no rules. No rules means exit 1.</p><p>python3 main.py -f RULE_FILE -t TYPE</p><p>Both arguments are required.</p><p>A repeated rule line draws one redundancy line per repeat.</p><p>An earlier rule whose text sits inside a later rule draws a hint line. The hint names both rules. It is a text match only. It is not a field aware shadow check. Equal rules are skipped by this check.</p><p>A rule holding the whole word any draws a line. A rule holding the unrestricted address range draws a line. No severity is attached. No remedy is attached.</p><p>Iptables chain creation lines are dropped. Default policies are dropped. Counters are dropped.</p><p>A firewalld rule spanning several lines keeps its opening line only. Its action, on a later line, never reaches the checks.</p><p>Missing file: error logged, exit 1.</p><p>File read, no rules parsed: error logged, exit 1.</p><p>Report printed, issues or none: exit 0.</p><p>Exit codes here report whether the run worked. They do not report whether the rules were sound.</p><p>git clone https://github.com/ShadowStrikeHQ/config-firewall-rule-analyzer</p><p>Copyright (c) ShadowStrikeHQ</p><p>ShadowStrikeHQ appears 2 times</p><p>GitHub records the licence as MIT</p><p>The program imports only the standard library.</p><p>Analyse a Rule File</p><p>Name the Rule Type</p><p>Show Help</p><p>Three Types, Named Not Detected</p><p>What the Parsers Drop</p><p>A Hint Is Not a Shadow Check</p><p>Findings Exit 0</p><p>No Rules Parsed Ends the Run</p><p>The Whole Word Any, and the Unrestricted Range</p><p>0.0.0.0/0</p><p>--file</p><p>--type</p>
+</section>
 </main>
-<footer>
-  <p>Config Firewall Rule Analyzer is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
+<footer><p>Theme record for ShadowGuard-AI/config-firewall-rule-analyzer. Fonts are embedded from the fonts folder beside this page, each under the SIL Open Font License 1.1.</p></footer>
 </body>
 </html>
