@@ -6,6 +6,8 @@ Title block: the name above is set in Big Shoulders Display in copper on a resis
 
 ![A ploughed firebreak line curving through dry gold grass with a mattock resting across it, blackened earth on one side, set in a plain ring](logo.png)
 
+![Four firefighters digging a firebreak across a gold hillside with mattocks, the finished line curving away to the left, a small tractor far behind on the horizon under smoke](banner.png)
+
 ![The bench in three depths: the panel and the wall still, one wax cake crossing from the cold corner to the heated centre and softening at its lower face while a pot surface levels and then cools dull, and the scraper lying flat and still](scene.svg)
 
 A command-line tool that parses firewall rules (iptables, firewalld, pfctl) from a specified file or system and analyzes them for redundancy and overly permissive rules, and reports a textual near duplicate hint between rules whose text is nested. Shadow detection compares rule text only and misses shadows whose texts are not nested, so it is a hint, not a field aware shadowed rule analysis. Outputs a report highlighting potential issues. - Focused on Tools for verifying that system or application configurations adhere to security best practices and policies. Scans configuration files, databases, or APIs for misconfigurations and vulnerabilities.
