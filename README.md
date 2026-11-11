@@ -1,12 +1,10 @@
-![The encaustic bench before work: the near edge of the hot plate cold at the corner with one wax cake resting on it hard and matte, three open pots on the heated centre with surfaces liquid and level, a scraper laid flat, cold cakes stacked behind, and the leaning panel catching north light, with no lettering anywhere](intro-banner.png)
+![A mattock turning earth at the edge of a firebreak close up, a boot at the line, blackened ground on one side and pale standing grass on the other, with no lettering anywhere](intro-banner.png)
 
 # config-Firewall-Rule-Analyzer
 
 Title block: the name above is set in Big Shoulders Display in copper on a resist white inventory plate, the medium noted first. A small wax cake glyph stands beside this heading and beside no other: 🟠. The remaining headings keep the studio inventory treatment, medium noted first and a small cake glyph at major headings only, so that a long document stays quick to scan.
 
-![One round wax cake, copper edged and flecked with pigment, on the cold corner of a hot plate, one face softened and shining, with the inventory lettering below in copper on resist white](logo.png)
-
-![A studio bench with a hot plate at its centre, three open pots of melted wax, cold cakes in a stack, a scraper laid flat, a leaning panel with one finished passage, and the title on the bench front inventory board in copper](banner.png)
+![A ploughed firebreak line curving through dry gold grass with a mattock resting across it, blackened earth on one side, set in a plain ring](logo.png)
 
 ![The bench in three depths: the panel and the wall still, one wax cake crossing from the cold corner to the heated centre and softening at its lower face while a pot surface levels and then cools dull, and the scraper lying flat and still](scene.svg)
 
